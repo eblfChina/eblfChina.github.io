@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title> </title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">常绿阔叶林</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="EBLF.html">Vegetation</a>
+</li>
+<li>
+  <a href="species.html">Species</a>
+</li>
+<li>
+  <a href="data.html">Data</a>
+</li>
+<li>
+  <a href="reference.html">Reference</a>
+</li>
+<li>
+  <a href="contact.html">Contact</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore"> </h1>
+
+</div>
+
+
+<div id="苦槠-柯-青冈群团" class="section level2">
+<h2><span style="color: blue;">苦槠-柯-青冈群团</span></h2>
+</div>
+<div
+id="castanopsis-sclerophylla---lithocarpus-glaber---cyclobalanopsis-glauca-all."
+class="section level2">
+<h2><span style="color: darkblue;"><em>Castanopsis sclerophylla</em> -
+<em>Lithocarpus glaber</em> - <em>Cyclobalanopsis glauca</em>
+All.</span></h2>
+<p><img src="Pictures/5(1)-1%20%E5%A4%A7%E9%87%91%E5%B1%B1%E5%B8%B8%E7%BB%BF%E9%98%94%E5%8F%B6%E6%9E%97%E5%A4%96%E8%B2%8C.JPG" /></p>
+<center>
+大金山常绿阔叶林外貌（Source: EBLF）
+</center>
+<p><img src="Pictures/5(1)-7%20%E6%B9%96%E5%8D%97%E5%B0%8F%E6%BA%AA%E6%98%9F%E6%AF%9B%E7%9F%B3%E6%A0%8E%E6%9E%97(1)%20018.JPG" /></p>
+<center>
+湖南小溪星毛石栎林（Source: EBLF）
+</center>
+<p><br></p>
+<div id="优势种" class="section level3">
+<h3>优势种：</h3>
+<p>青冈、苦槠、柯，三者中可以一种为主，也可以不同比例组成群落</p>
+<p><br></p>
+</div>
+<div id="鉴别种和主要伴生种" class="section level3">
+<h3>鉴别种和主要伴生种:</h3>
+<ul>
+<li><p>乔木层：冬青（Ilex chinensis）、女贞（Ligustrum
+lucidum）、黄檀（Dalbergia hupeana）、白栎（Quercus
+fabri）、黄连木（Pistacia chinensis）</p></li>
+<li><p>灌木层：杜鹃（Rhododendron simsii）、白檀（Symplocos
+paniculata）、檵木（Loropetalum chinense）、南烛（Vaccinium
+bracteatum）、大青（Clerodendrum cyrtophyllum）、豆腐柴（Premna
+microphylla）、乌药(Lindera aggregata)、栀子(Gardenia
+jasminoides)、白马骨(Serissa serissoides)、枸骨冬青（Ilex
+cornuta）</p></li>
+<li><p>草本层：山麦冬（Liriope spicata）、麦冬(Ophiopogon
+japonicus)、狗脊(Woodwardia japonica)、淡竹叶(Lophatherum
+gracile)、紫金牛（Ardisia japonica）</p></li>
+<li><p>藤本植物：海金沙（Lygodium japonicum）、牛奶子（Elaeagnus
+umbellata）、薜荔（Ficus pumila），以及菝葜(Smilax
+china)、络石(Trachelospermum jasminoides)</p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="目前包含11个群丛和5个群落" class="section level3">
+<h3>目前包含11个群丛和5个群落</h3>
+<ul>
+<li><p>(A1) 篌竹-豆梨/青冈群丛（Pyrus calleryana- Phyllostachys
+nidularia ∕Cyclobalanopsis glauca Ass.）</p>
+<p>见于上海大金山（EBLF书中表5-4∕1-6；曾称：篌竹/ 青冈群落)</p></li>
+<li><p>(A2)假黑鳞耳蕨-冬青/苦槠群丛（Polystichum pseudo-makinoi-Ilex
+purpurea ∕ Castanopsis sclerophylla Ass.）</p>
+<p>见于苏州、上海附近丘陵地段（EBLF书中表5-8a；曾称：冬青/苦槠群落)</p></li>
+<li><p>(A3)水竹-檵木/苦槠群丛（Phyllostachys heteroclada- Loropetalum
+chinense ∕ Castanopsis sclerophylla Ass.）</p>
+<p>见于安徽黄山、贵池、歙县、旌德（EBLF书中表5-9a；曾称：檵木/苦槠群丛)</p></li>
+<li><p>(A4）刚竹-檵木/樟树-苦槠群丛（Phyllostachys-Loropetalum chinense
+∕ Castanopsis sclerophylla Ass.）</p>
+<p>见于江西庐山、南昌望城岗（EBLF书中表5-9b；曾称：檵木/苦槠群落)</p></li>
+<li><p>(A5) 斜方复叶耳蕨-檵木/青冈群丛（Arachniodes
+rhomboidea-Loropetalum chinense ∕ Cyclobalanopsis glauca Ass.）</p>
+<p>见于安徽贵池、歙县、旌德；闽北（EBLF书中表5-5a；曾称：檵木/苦槠群落）</p></li>
+<li><p>(A6)阔叶十大功劳-豹皮樟/青冈-港柯群丛（Mahonia bealei -Litsea
+coreana var. sinensis / Cyclobalanopsis glauca -Lithocarpus harlandii
+Ass.） 见于安徽黟县（EBLF书中表5-17；曾称：豹皮樟/港柯群丛）</p></li>
+<li><p>(A7) 金星蕨-檵木/青冈群丛（Parathelypteris -Loropetalum chinense
+∕ Cyclobalanopsis glauca Ass.）</p>
+<p>见于安徽南部以及福建北部（EBLF书中表5-5b；曾称：檵木/苦槠群落）</p></li>
+<li><p>(A8) 华里白-檵木∕苦槠+青冈群丛（Hicriopteris
+chinensis-Loropetalum chinense ∕ Castanopsis sclerophylla +
+Cyclobalanopsis glauca Ass.）</p>
+<p>见于安徽祁门繁昌；福建蒲城（EBLF书中表5-9c）(书中曾称：檵木/苦槠群落)</p></li>
+<li><p>(A9）里白-绒毛润楠/青冈群丛（Hicriopteris glauca- Machilus
+velutina / Cyclobalanopsis glauca Ass.）</p>
+<p>见于闽北武夷山、闽中永定；浙南；江西井冈山、铅山（表5-6）(曾称：绒毛润楠/青冈群丛)</p></li>
+<li><p>(A10）垂珠花-檵木∕柯+青冈群丛（Styrax dasyanthus-Loropetalum
+chinense ∕ Lithocarpus glaber+ Cyclobalanopsis glauca Ass.）</p>
+<p>见于杭州午潮山（EBLF书中表5-11b；曾称：檵木-乌药/柯群落)</p></li>
+<li><p>(A11）短梗冬青-檵木∕柯+青冈群丛（Ilex buergeri-Loropetalum
+chinense ∕ Lithocarpus glaber+ Cyclobalanopsis glauca Ass.）</p>
+<p>见于安徽贵池（EBLF书中表5-11a；曾称：檵木-乌药/柯群落)</p></li>
+<li><p>(C1）白马骨-小叶石楠/栓皮栎-青冈群落（Cyclobalanopsis glauca
++Quercus variabilis -Photinia parvifolia-Serissa serissoides Comm.）</p>
+<p>见于南京隆昌寺（EBLF书中表5-3∕1-2；曾称：白马骨/青冈群落)</p></li>
+<li><p>(C2) 丝穗金粟兰-冬青 /豺皮樟-苦槠群落（Chloranthus fortunei -
+Ilex chinensis/Castanopsis sclerophylla Comm.）</p>
+<p>见于上海佘山（EBLF书中表5-8b；曾称：冬青 /苦槠群落)</p></li>
+<li><p>(C3) 山姜-粗叶木/苦槠群落（Alpinia japonica -Lasianthus chinensis
+/Litsea rotundifolia var. oblongifolia -Castanopsis sclerophylla
+Comm.）</p>
+<p>见于江西井冈山。引自《中国植被》中的“苦槠、豺皮樟、红楠-苦竹、粗叶木-、狗脊群丛”
+（中国植被编辑委员会，1980），亦即《江西森林》中的“山姜＋狗脊-苦竹＋粗叶木-豺皮樟＋苦槠林型”
+（江西森林编委会，1986)
+（EBLF书中表5-10；曾称：粗叶木/苦槠群落)</p></li>
+<li><p>(C4）蜘蛛抱蛋-针齿铁仔/栓叶安息香-青冈群落（Vitex
+canescens-Myrsine semiserrata / Styrax suberifolia -Cyclobalanopsis
+glauca Comm.）</p>
+<p>见于湖南永顺县,
+引自：引自《湖南植被》“青冈栎、红皮树（栓叶安息香）群落（Cyclobalanopsis
+glauca，Styrax suberifolia
+forest）”（祁承经,1990)（EBLF书中表5-7∕1；曾称：栓叶安息/青冈群落)</p></li>
+<li><p>(C5）翅柃/厚皮香-青冈群落（Eurya alata/ Ternstroemia
+gymnantheraCyclobalanopsis glauca Comm.）</p>
+<p>见于湖南桃园县。引自《湖南植被》
+“青冈栎、厚皮香群落”（Cyclobalanopsis glauca，Ternstroemia gymnanthera
+forest）（祁承经,1990)
+（EBLF书中表5-7∕2，曾称：厚皮香/青冈群落)。</p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="附注" class="section level3">
+<h3>附注：</h3>
+<p>《广西植被》(苏宗明等，2014)
+中曾记录有以下三个群落，但未无样地记录表，附记如下：</p>
+<ul>
+<li><p>青冈-青冈-青冈-驳骨九节-三角眼凤尾蕨群落</p>
+<p>Cyclobalanopsis glauca-Cyclobalanopsis glauca-Cyclobalanopsis
+glauca-Psychotria prainii –Pteris sp. Comm.</p></li>
+<li><p>青冈+黄杞-穗序鹅掌柴+黄杞-文山润楠-草珊瑚-孔药花群落</p>
+<p>Cyclobalanopsis glauca+Engelhardtia roxburghiana -Schefflera delavayi
++Engelhardtia roxburghiana -Machilus wenshanensis-Sarcandra
+glabra-Porandra ramosa Comm.)</p></li>
+<li><p>青冈-银木荷+青冈-银木荷-柏拉木+海南罗伞树-毛果珍珠茅群落</p>
+<p>Cyclobalanopsis glauca-Schima argentea +Cyclobalanopsis glauca-Schima
+argentea -Blastus cochinchinensis+Ardisia quinquegona-Scleria levis
+Comm.</p></li>
+</ul>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
