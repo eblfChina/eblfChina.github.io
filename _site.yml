@@ -1,6 +1,8 @@
-name: "常绿阔叶林"
+name: "EBLF"
+description: "Evergreen broad-leaved forests"
+output_dir: "."
 navbar:
-  title: "常绿阔叶林"
+  title: <p style="color:darkgreen;font-weight:bold;font-size:20px">常绿阔叶林</p>
   right:
     - text: "Home"
       href: index.html
@@ -14,3 +16,11 @@ navbar:
       href: reference.html
     - text: "Contact"
       href: contact.html
+
+output:
+  html_document:
+    theme: readable
+    highlight: textmate
+    include:
+#      in_header: header.html
+      after_body: footer.html
