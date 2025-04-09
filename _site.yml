@@ -2,7 +2,7 @@ name: "EBLF"
 description: "Evergreen broad-leaved forests"
 output_dir: "."
 navbar:
-  title: <p style="color:darkgreen;font-weight:bold;font-size:20px">常绿阔叶林</p>
+  title: <p style="color:darkgreen;font-weight:bold;font-size:20px">Evergreen broad-leaved forests (常绿阔叶林)</p>
   right:
     - text: "Home"
       href: index.html
