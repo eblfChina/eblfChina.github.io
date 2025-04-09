@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title> </title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"><p style="color:darkgreen;font-weight:bold;font-size:20px">Evergreen broad-leaved forests (常绿阔叶林)</p></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="EBLF.html">Vegetation</a>
+</li>
+<li>
+  <a href="species.html">Species</a>
+</li>
+<li>
+  <a href="data.html">Data</a>
+</li>
+<li>
+  <a href="reference.html">Reference</a>
+</li>
+<li>
+  <a href="contact.html">Contact</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore"> </h1>
+
+</div>
+
+
+<div id="米槠-栲群团" class="section level2">
+<h2><span style="color: blue;">米槠-栲群团</span></h2>
+</div>
+<div id="castanopsis-carlesii-c.-fargesii-all." class="section level2">
+<h2><span style="color: darkblue;"><em>Castanopsis carlesii</em>-<em>C.
+fargesii</em> All.</span></h2>
+<p><br></p>
+<div id="优势种" class="section level3">
+<h3>优势种：</h3>
+<p>栲树和米槠，它们可以互为伯仲</p>
+<p><br></p>
+</div>
+<div id="鉴别种和主要伴生种" class="section level3">
+<h3>鉴别种和主要伴生种:</h3>
+<ul>
+<li><p>乔木层：南酸枣（<em>Choerospondias
+axillaris</em>），红楠（<em>Machilus
+thunbergii</em>），黄杞（<em>Engelhardtia
+roxburghiana</em>），厚皮香（<em>Ternstroemia
+gymanthera</em>）黄丹木姜子（<em>Litsea
+elongata</em>），毛叶木姜（<em>Litsea mollis</em>）</p></li>
+<li><p>灌木层：草珊瑚（<em>Sarcandra glabra</em>），杜茎山（<em>Maesa
+japonica</em>）、朱砂根（<em>Ardisia
+crenata</em>），老鼠矢（<em>Symplocos stellaris</em>）</p></li>
+<li><p>草本层：狗脊（<em>Woodwardia
+japonica</em>），薹草（<em>Carex</em> spp.）, 里白（<em>Diplopterygium
+glaucum</em>）</p></li>
+<li><p>藤本植物：流苏子（<em>Coptosapelta
+diffusa</em>），牛老药藤（<em>Thysanospermum
+diffusum</em>），藤黄檀（<em>Dalbergia hancei</em>）等</p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="a米槠-栲树群团--江南丘陵群丛组" class="section level3">
+<h3>(a)米槠-栲树群团- 江南丘陵群丛组</h3>
+<p>主要分布在浙江、湖南丘陵低山地区。伴生种除群团的鉴别种外，乔木层常见的有：赤楠（<em>Syzygium
+buxifolium</em>）,马银花（<em>Rhododendron
+ovatum</em>），南烛（<em>Vaccinium bracteatum</em>）、杨梅（<em>Myrica
+rubra</em>）、浙江新木姜子（<em>Neolitsea aurata</em> var.
+<em>chekiangensis</em>）、黄丹木姜子（<em>Litsea
+elongata</em>）、络石（<em>Trachelospermum
+jasminoides</em>）等，分布范围较偏北</p>
+<p><br></p>
+<div id="目前包含2个群丛和4个群落" class="section level4">
+<h4>目前包含2个群丛和4个群落</h4>
+<ul>
+<li><p>(A1) 尖连蕊茶-浙江新木姜子∕米槠群丛(C<em>amellia
+cuspidata</em>-<em>Neolitsea aurata</em> var.
+<em>chekiangensis</em>/<em>Castanopsis carlesii</em> Ass.)</p>
+<p>分布在浙江杭州（EBLF书中表5-66；曾称：杜茎山-浙江新木姜子∕米槠群丛)</p></li>
+<li><p>(A2) 毛柄连蕊茶-浙江新木姜子∕栲树-米槠群丛(<em>Camellia
+fraterna</em>-<em>Neolitsea aurata</em> var.
+<em>chekiangensis</em>/<em>Castanopsis carlesii</em>+<em>Castanopsis
+fargesii</em> Ass.)</p>
+<p>分布在浙江宁波，引自：《天童植被与区系》中的“木荷ʹ栲群丛”（宋永昌和王祥荣，1995）（EBLF书中表5-67，EBLF书中表5-56，EBLF书中表5-57;
+曾称：毛柄连蕊茶-浙江新木姜子∕栲树群丛，毛柄连蕊茶-浙江新木姜子∕米槠群丛，两者合并)</p></li>
+<li><p>(C1）穗序鹅掌柴-利川润楠/米槠群落(<em>Schefflera
+delavayi</em>-<em>Machilus lichuanensis</em>/<em>Castanopsis
+carlesii</em> Comm.)</p>
+<p>分布在湖南慈利（EBLF书中表5-70;
+曾称：穗序鹅掌柴-黄杞∕米槠群落)</p></li>
+<li><p>(C2) 石楠藤-毛豹皮樟-湘南/栲树群落（<em>Castanopsis
+fargesi</em>+<em>Phoebe hunanensis</em>-<em>Litsea coreana</em> var.
+<em>lanuginosa</em>-<em>Piper wallichii</em> Comm.）</p>
+<p>分布在湖南会同(EBLF书中表5-59/1) (曾称：毛豹皮樟∕栲树群落)</p></li>
+<li><p>(C3) 粉叶羊蹄甲-毛豹皮樟/青冈-栲树群落（<em>Bauhinia
+glauca</em>-<em>Litsea coreana</em> var. <em>lanuginosa</em>/
+<em>Cyclobalanopsis glauca</em>-<em>Castanopsis fargesi</em> Comm.）</p>
+<p>分布在湖南会同(EBLF书中表5-59/2; 曾称：毛豹皮樟∕栲树群落)</p></li>
+<li><p>(C4) 尖连蕊茶/钩锥-栲树群落（<em>Camellia cuspidata</em>/
+<em>Castanopsis tibetana</em>-<em>Castanopsis fargesi</em> Comm.）</p>
+<p>分布在湖南会同。引自：《湖南植被》中
+“栲树、钩锥群落”（祁承经，1990）(EBLF书中表5-60)
+(曾称：杜茎山-钩锥∕栲树群落)</p></li>
+</ul>
+<p><br></p>
+</div>
+</div>
+<div id="b米槠-栲树群团--闽粤丘陵山地群丛组" class="section level3">
+<h3>(b)米槠-栲树群团- 闽粤丘陵山地群丛组</h3>
+<p>主要分布在福建、广东、江西等地丘陵山地。伴生种除群团的鉴别种外，常见的还有：黄杞（<em>Engelhardia
+roxburghiana</em>）、日本杜英（<em>Elaeocarpus
+japonicus</em>），杨桐（<em>Adinandra
+millettii</em>），鹅掌柴（<em>Schefflera
+octophylla</em>），九节木（<em>Psychotria
+rubra</em>），虎舌红（<em>Ardisia
+mamillata</em>），流苏子（<em>Coptosapelta
+diffusa</em>）等，相对于江南丘陵群丛组立地条件更温暖湿润</p>
+<p><br></p>
+<div id="目前包括1个群丛和8个群落" class="section level4">
+<h4>目前包括1个群丛和8个群落</h4>
+<ul>
+<li><p>(A1) 黑莎草-轮叶蒲桃/栲树-米槠群丛(<em>Gahnia tristis</em>
+-<em>Syzygium grijsii</em>/<em>Castanopsis fargesii</em>-<em>Castanopsis
+carlesii</em> Ass.)</p>
+<p>分布在福建梁野山、天宝岩、梅花山，引自：《福建天宝岩自然保护区综合科学报告》（林鹏
+等，2002），《福建梁野山自然保护区综合科学报告》（林鹏
+等，2001），《福建梅花山自然保护区植被》（邱喜昭，1988），（EBLF书中表5-68;
+曾称：轮叶蒲桃-少叶黄杞∕米槠群丛)</p></li>
+<li><p>(C1) 乌毛蕨-毛柄连蕊茶-鹅掌柴/栲树-米槠群落(<em>Blechnum
+orientale</em>-<em>Glochidion eriocarpum</em>-<em>Schefflera
+octophylla</em>/<em>Castanopsis fargesii</em>-<em>Castanopsis
+carlesii</em> Comm.)</p>
+<p>分布在福建莆田南昆山
+(EBLF书中表8-26∕1；曾称：：九节木-鹅掌柴∕米槠群落，现从其中分出)</p></li>
+<li><p>(C2) 鳞籽莎-面竿竹-鹅掌柴/栲树群落(<em>Lepidosperma
+chinense</em>-<em>Pseudosasa orthotropa</em>-<em>Schefflera
+octophylla</em>/<em>Castanopsis fargesii</em> Comm.)</p>
+<p>分布在福建莆田南昆山
+(EBLF书中表8-26∕2；曾称：：九节木-鹅掌柴∕米槠群落，现从其中分出)</p></li>
+<li><p>(C3) 金毛狗-白花灯笼-鹅掌柴/栲树群落（<em>Castanopsis
+fargesii</em>-<em>Schefflera octophylla</em>-<em>Schefflera
+octophylla</em>/<em>Castanopsis fargesii</em> Comm.）</p>
+<p>分布在福建莆田、南靖。引自：《福建植被》中“米槠+栲树-九节木+百两金+连蕊茶-狗脊+里白群丛”（林鹏，1990）。
+(EBLF书中表8-26/3；曾称：九节木-鹅掌-鹅掌柴/ 栲树-米槠群落)</p></li>
+<li><p>(C4) 钩毛草-山牡荆-九节木/栲树群落（<em>Pseudechinolaena
+polystachya</em>-<em>Vitex quinata</em>-<em>Psychotria rubra</em>/
+<em>Castanopsis fargesi</em> Comm.）</p>
+<p>引自：《福建植被》（林鹏，1990)一书中的“栲树＋山杜英-九节木-狗脊群丛”，分布在福建莆田
+(EBLF书中表5-58/1；曾称：九节木-黄杞∕栲树群落，现从其中分出)</p></li>
+<li><p>(C5)心叶毛蕊茶-阔瓣含笑/栲树群落(<em>Camellia
+cordifolia</em>-<em>Mechelia fallax</em>/<em>Castanopsis fargesii</em>
+Comm. )</p>
+<p>分布在江西井冈山。引自：《江西植被的基本类型》（林英，1977）和《江西森林》（江西森林编委会，1986)
+中所记载的
+“狗脊-细枝柃-丝栗锥林型”的综合(EBLF书中表5-58/2；曾称：：九节木-黄杞/栲树群落，现从其中划分出来)</p></li>
+<li><p>(C6) 箬竹-鹿角杜鹃-翻白叶树/米槠群落(<em>Indocalamus
+tessellatus</em>-<em>Rhododendron latoucheae</em>-<em>Pterospermum
+heterophyllum</em>/<em>Castanopsis carlesii</em> Comm. )</p>
+<p>分布在江西九连山（EBLF书中表5-69/1；曾称：草珊瑚-黄杞∕米槠群落，现从其中分出)</p></li>
+<li><p>(C7）四川冬青-香花枇杷/米槠群落(<em>Rhododendron
+latoucheae</em>/<em>Castanopsis carlesii</em> Comm. )</p>
+<p>分布在江西九连山（EBLF书中表5-69/2；曾称：草珊瑚-黄杞∕米槠群落，现从其中分出)</p></li>
+<li><p>(C8) 林仔竹-红花荷/ 甜槠-米槠群落(<em>Oligostachyum
+nuspiculum</em>-<em>Rhodoleia championi</em>/<em>Castanopsis
+eyrei</em>-<em>Castanopsis carlesii</em> Comm.)</p>
+<p>分布在广东南昆山。(EBLF书中表8-25；曾称：：红花荷∕甜槠-米槠群丛)</p></li>
+</ul>
+<p><br></p>
+</div>
+</div>
+<div id="c米槠-栲树群团-黔桂山地群丛组" class="section level3">
+<h3>(c)米槠-栲树群团-黔桂山地群丛组</h3>
+<p>主要分布在广西和贵州东部等地。伴生种除群团的鉴别种外，常见的还有：</p>
+<p><br></p>
+<div id="目前包含1个群丛和8个群落" class="section level4">
+<h4>目前包含1个群丛和8个群落</h4>
+</div>
+</div>
+</div>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<body>
+
+
+
+<hr>
+<center>
+Copyright © <a href="mailto:zhangjian6@mail.sysu.edu.cn">Jian Zhang</a> 2025 –
+<script type="text/javascript">
+  document.write(new Date().getFullYear());
+</script>
+<div class="line-block">Created using <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html">rmarkdown</a></div>
+</center>
+
+
+</body>
+</html>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
